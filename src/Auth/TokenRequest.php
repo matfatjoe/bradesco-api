@@ -4,37 +4,41 @@ namespace Matfatjoe\BradescoBoleto\Auth;
 
 class TokenRequest
 {
-    private $pfxPath;
-    private $passphrase;
+    private $certPath;
+    private $keyPath;
     private $clientId;
     private $clientSecret;
 
     /**
-     * @param string $pfxPath Path to the .pfx certificate file
-     * @param string $passphrase Passphrase for the certificate
+     * @param string $certPath Path to the .pem certificate file
+     * @param string $keyPath Path to the .pem private key file
      * @param string $clientId Client ID for the API
      * @param string $clientSecret Client Secret for the API
      */
-    public function __construct(string $pfxPath, string $passphrase, string $clientId, string $clientSecret)
+    public function __construct(string $certPath, string $keyPath, string $clientId, string $clientSecret)
     {
-        if (!file_exists($pfxPath)) {
-            throw new \InvalidArgumentException("Certificate file not found: {$pfxPath}");
+        if (!file_exists($certPath)) {
+            throw new \InvalidArgumentException("Certificate file not found: {$certPath}");
         }
 
-        $this->pfxPath = $pfxPath;
-        $this->passphrase = $passphrase;
+        if (!file_exists($keyPath)) {
+            throw new \InvalidArgumentException("Private key file not found: {$keyPath}");
+        }
+
+        $this->certPath = $certPath;
+        $this->keyPath = $keyPath;
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
     }
 
-    public function getPfxPath(): string
+    public function getCertPath(): string
     {
-        return $this->pfxPath;
+        return $this->certPath;
     }
 
-    public function getPassphrase(): string
+    public function getKeyPath(): string
     {
-        return $this->passphrase;
+        return $this->keyPath;
     }
 
     public function getClientId(): string

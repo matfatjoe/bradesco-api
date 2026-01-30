@@ -1,0 +1,61 @@
+# Composer
+/vendor/
+composer.lock
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Certificados e chaves privadas (IMPORTANTE: nunca commitar!)
+*.pfx
+*.p12
+*.key
+*.pem
+*.crt
+*.cer
+!tests/fixtures/*.crt
+!tests/fixtures/*.key
+
+# Credenciais e configurações sensíveis
+.env
+.env.local
+.env.*.local
+*_credentials.json
+*_secrets.json
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Cache e temporários
+cache/
+tmp/
+temp/
+*.cache
+.phpunit.result.cache
+
+# Build e distribuição
+dist/
+build/
+*.phar
+
+# Sistema operacional
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# PHPUnit
+.phpunit.cache/
+coverage/
+.phpunit.result.cache
+
+# Docker
+.docker/
+docker-compose.override.yml
+examples/test_token.php

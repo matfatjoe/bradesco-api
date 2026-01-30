@@ -1,0 +1,33 @@
+{
+    "name": "matfatjoe/bradesco-api",
+    "description": "Library for Bradesco Boleto Emission",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "authors": [
+        {
+            "name": "Matheus Furquim de Camargo",
+            "email": "matheus.fdecamargo@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Matfatjoe\\BradescoBoleto\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Matfatjoe\\BradescoBoleto\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}

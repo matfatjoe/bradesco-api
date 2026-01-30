@@ -1,0 +1,1658 @@
+{
+	"info": {
+		"_postman_id": "1d97fa93-7c92-4377-94db-8ec6765b2eb9",
+		"name": "Cobrança com QR Code Cliente atualizada",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SANDBOX",
+			"item": [
+				{
+					"name": "Token",
+					"item": [
+						{
+							"name": "Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody); \r",
+											"postman.setGlobalVariable(\"access_token_sandbox\", jsonData.access_token);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "{{ClientID_SDX}}",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "{{ClientSecret_SDX}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/auth/server-mtls/v2/token",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"auth",
+										"server-mtls",
+										"v2",
+										"token"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cobrança com QRCode - Registro de boleto com QRCode",
+					"item": [
+						{
+							"name": "Gerar Boleto de Cobrança - Sucesso",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ctitloCobrCdent\": 0,\r\n    \"registrarTitulo\": 1,\r\n    \"nroCpfCnpjBenef\": 68542653,\r\n    \"codUsuario\": \"APISERVIC\",\r\n    \"filCpfCnpjBenef\": \"1018\",\r\n    \"tipoAcesso\": 2,\r\n    \"digCpfCnpjBenef\": 38,\r\n    \"cpssoaJuridContr\": \"\",\r\n    \"ctpoContrNegoc\": \"\",\r\n    \"cidtfdProdCobr\": 9,\r\n    \"nseqContrNegoc\": \"\",\r\n    \"cnegocCobr\": 111111111111111111,\r\n    \"filler\": \"\",\r\n    \"eNseqContrNegoc\": \"\",\r\n    \"tipoRegistro\": 1,\r\n    \"codigoBanco\": 237,\r\n    \"cprodtServcOper\": \"\",\r\n    \"demisTitloCobr\": \"17.12.2024\",\r\n    \"ctitloCliCdent\": \"TESTEBIA\",\r\n    \"dvctoTitloCobr\": \"20.02.2025\",\r\n    \"cidtfdTpoVcto\": \"\",\r\n    \"vnmnalTitloCobr\": 6000,\r\n    \"cindcdEconmMoeda\": 9,\r\n    \"cespceTitloCobr\": 2,\r\n    \"qmoedaNegocTitlo\": 0,\r\n    \"ctpoProteTitlo\": 0,\r\n    \"cindcdAceitSacdo\": \"N\",\r\n    \"ctpoPrzProte\": 0,\r\n    \"ctpoPrzDecurs\": 0,\r\n    \"ctpoProteDecurs\": 0,\r\n    \"cctrlPartcTitlo\": 0,\r\n    \"cindcdPgtoParcial\": \"N\",\r\n    \"cformaEmisPplta\": \"02\",\r\n    \"qtdePgtoParcial\": 0,\r\n    \"qtdDecurPrz\": \"0\",\r\n    \"codNegativacao\": \"0\",\r\n    \"diasNegativacao\": \"0\",\r\n    \"ptxJuroVcto\": 0,\r\n    \"filler1\": \"\",\r\n    \"vdiaJuroMora\": 0,\r\n    \"pmultaAplicVcto\": 0,\r\n    \"qdiaInicJuro\": 0,\r\n    \"vmultaAtrsoPgto\": 0,\r\n    \"pdescBonifPgto01\": 0,\r\n    \"qdiaInicMulta\": 0,\r\n    \"vdescBonifPgto01\": 0,\r\n    \"pdescBonifPgto02\": 0,\r\n    \"dlimDescBonif1\": \"\",\r\n    \"vdescBonifPgto02\": 0,\r\n    \"pdescBonifPgto03\": 0,\r\n    \"dlimDescBonif2\": \"\",\r\n    \"vdescBonifPgto03\": 0,\r\n    \"ctpoPrzCobr\": 0,\r\n    \"dlimDescBonif3\": \"\",\r\n    \"pdescBonifPgto\": 0,\r\n    \"dlimBonifPgto\": \"\",\r\n    \"vdescBonifPgto\": 0,\r\n    \"vabtmtTitloCobr\": 0,\r\n    \"filler2\": \"\",\r\n    \"viofPgtoTitlo\": 0,\r\n    \"isacdoTitloCobr\": \"TESTE EMPRESA PGIT\",\r\n    \"enroLogdrSacdo\": \"TESTE\",\r\n    \"elogdrSacdoTitlo\": \"TESTE\",\r\n    \"ecomplLogdrSacdo\": \"TESTE\",\r\n    \"ccepSacdoTitlo\": 6332,\r\n    \"ebairoLogdrSacdo\": \"TESTE\",\r\n    \"ccomplCepSacdo\": 130,\r\n    \"imunSacdoTitlo\": \"TESTE\",\r\n    \"indCpfCnpjSacdo\": 1,\r\n    \"csglUfSacdo\": \"SP\",\r\n    \"renderEletrSacdo\": \"\",\r\n    \"cdddFoneSacdo\": 0,\r\n    \"nroCpfCnpjSacdo\": 38453450803,\r\n    \"bancoDeb\": 0,\r\n    \"cfoneSacdoTitlo\": 0,\r\n    \"agenciaDebDv\": 0,\r\n    \"agenciaDeb\": 0,\r\n    \"bancoCentProt\": 0,\r\n    \"contaDeb\": 0,\r\n    \"isacdrAvalsTitlo\": \"\",\r\n    \"agenciaDvCentPr\": 0,\r\n    \"enroLogdrSacdr\": \"0\",\r\n    \"elogdrSacdrAvals\": \"\",\r\n    \"ecomplLogdrSacdr\": \"\",\r\n    \"ccomplCepSacdr\": 0,\r\n    \"ebairoLogdrSacdr\": \"\",\r\n    \"csglUfSacdr\": \"\",\r\n    \"ccepSacdrTitlo\": 0,\r\n    \"imunSacdrAvals\": \"\",\r\n    \"indCpfCnpjSacdr\": 0,\r\n    \"renderEletrSacdr\": \"\",\r\n    \"nroCpfCnpjSacdr\": 0,\r\n    \"cdddFoneSacdr\": 0,\r\n    \"filler3\": \"0\",\r\n    \"cfoneSacdrTitlo\": 0,\r\n    \"iconcPgtoSpi\": \"\",\r\n    \"fase\": \"1\",\r\n    \"cindcdCobrMisto\": \"S\",\r\n    \"ialiasAdsaoCta\": \"\",\r\n    \"ilinkGeracQrcd\": \"\",\r\n    \"caliasAdsaoCta\": \"\",\r\n    \"wqrcdPdraoMercd\": \"\",\r\n    \"validadeAposVencimento\": \"\",\r\n    \"filler4\": \"\",\r\n    \"idLoc\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-registro/v1/gerarBoleto",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-registro",
+										"v1",
+										"gerarBoleto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Gerar Boleto de Cobrança - Boleto já cadastrado",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ctitloCobrCdent\": 999999999,\r\n    \"registrarTitulo\": 1,\r\n    \"nroCpfCnpjBenef\": 68542653,\r\n    \"codUsuario\": \"APISERVIC\",\r\n    \"filCpfCnpjBenef\": \"1018\",\r\n    \"tipoAcesso\": 2,\r\n    \"digCpfCnpjBenef\": 38,\r\n    \"cpssoaJuridContr\": \"\",\r\n    \"ctpoContrNegoc\": \"\",\r\n    \"cidtfdProdCobr\": 9,\r\n    \"nseqContrNegoc\": \"\",\r\n    \"cnegocCobr\": 111111111111111113,\r\n    \"filler\": \"\",\r\n    \"eNseqContrNegoc\": \"\",\r\n    \"tipoRegistro\": 1,\r\n    \"codigoBanco\": 237,\r\n    \"cprodtServcOper\": \"\",\r\n    \"demisTitloCobr\": \"17.12.2024\",\r\n    \"ctitloCliCdent\": \"TESTEBIA\",\r\n    \"dvctoTitloCobr\": \"20.02.2025\",\r\n    \"cidtfdTpoVcto\": \"\",\r\n    \"vnmnalTitloCobr\": 6000,\r\n    \"cindcdEconmMoeda\": 9,\r\n    \"cespceTitloCobr\": 2,\r\n    \"qmoedaNegocTitlo\": 0,\r\n    \"ctpoProteTitlo\": 0,\r\n    \"cindcdAceitSacdo\": \"N\",\r\n    \"ctpoPrzProte\": 0,\r\n    \"ctpoPrzDecurs\": 0,\r\n    \"ctpoProteDecurs\": 0,\r\n    \"cctrlPartcTitlo\": 0,\r\n    \"cindcdPgtoParcial\": \"N\",\r\n    \"cformaEmisPplta\": \"02\",\r\n    \"qtdePgtoParcial\": 0,\r\n    \"qtdDecurPrz\": \"0\",\r\n    \"codNegativacao\": \"0\",\r\n    \"diasNegativacao\": \"0\",\r\n    \"ptxJuroVcto\": 0,\r\n    \"filler1\": \"\",\r\n    \"vdiaJuroMora\": 0,\r\n    \"pmultaAplicVcto\": 0,\r\n    \"qdiaInicJuro\": 0,\r\n    \"vmultaAtrsoPgto\": 0,\r\n    \"pdescBonifPgto01\": 0,\r\n    \"qdiaInicMulta\": 0,\r\n    \"vdescBonifPgto01\": 0,\r\n    \"pdescBonifPgto02\": 0,\r\n    \"dlimDescBonif1\": \"\",\r\n    \"vdescBonifPgto02\": 0,\r\n    \"pdescBonifPgto03\": 0,\r\n    \"dlimDescBonif2\": \"\",\r\n    \"vdescBonifPgto03\": 0,\r\n    \"ctpoPrzCobr\": 0,\r\n    \"dlimDescBonif3\": \"\",\r\n    \"pdescBonifPgto\": 0,\r\n    \"dlimBonifPgto\": \"\",\r\n    \"vdescBonifPgto\": 0,\r\n    \"vabtmtTitloCobr\": 0,\r\n    \"filler2\": \"\",\r\n    \"viofPgtoTitlo\": 0,\r\n    \"isacdoTitloCobr\": \"TESTE EMPRESA PGIT\",\r\n    \"enroLogdrSacdo\": \"TESTE\",\r\n    \"elogdrSacdoTitlo\": \"TESTE\",\r\n    \"ecomplLogdrSacdo\": \"TESTE\",\r\n    \"ccepSacdoTitlo\": 6332,\r\n    \"ebairoLogdrSacdo\": \"TESTE\",\r\n    \"ccomplCepSacdo\": 130,\r\n    \"imunSacdoTitlo\": \"TESTE\",\r\n    \"indCpfCnpjSacdo\": 1,\r\n    \"csglUfSacdo\": \"SP\",\r\n    \"renderEletrSacdo\": \"\",\r\n    \"cdddFoneSacdo\": 0,\r\n    \"nroCpfCnpjSacdo\": 38453450803,\r\n    \"bancoDeb\": 0,\r\n    \"cfoneSacdoTitlo\": 0,\r\n    \"agenciaDebDv\": 0,\r\n    \"agenciaDeb\": 0,\r\n    \"bancoCentProt\": 0,\r\n    \"contaDeb\": 0,\r\n    \"isacdrAvalsTitlo\": \"\",\r\n    \"agenciaDvCentPr\": 0,\r\n    \"enroLogdrSacdr\": \"0\",\r\n    \"elogdrSacdrAvals\": \"\",\r\n    \"ecomplLogdrSacdr\": \"\",\r\n    \"ccomplCepSacdr\": 0,\r\n    \"ebairoLogdrSacdr\": \"\",\r\n    \"csglUfSacdr\": \"\",\r\n    \"ccepSacdrTitlo\": 0,\r\n    \"imunSacdrAvals\": \"\",\r\n    \"indCpfCnpjSacdr\": 0,\r\n    \"renderEletrSacdr\": \"\",\r\n    \"nroCpfCnpjSacdr\": 0,\r\n    \"cdddFoneSacdr\": 0,\r\n    \"filler3\": \"0\",\r\n    \"cfoneSacdrTitlo\": 0,\r\n    \"iconcPgtoSpi\": \"\",\r\n    \"fase\": \"1\",\r\n    \"cindcdCobrMisto\": \"S\",\r\n    \"ialiasAdsaoCta\": \"\",\r\n    \"ilinkGeracQrcd\": \"\",\r\n    \"caliasAdsaoCta\": \"\",\r\n    \"wqrcdPdraoMercd\": \"\",\r\n    \"validadeAposVencimento\": \"\",\r\n    \"filler4\": \"\",\r\n    \"idLoc\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-registro/v1/gerarBoleto",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-registro",
+										"v1",
+										"gerarBoleto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Gerar Boleto de Cobrança - Preenchimento de campo excedido",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ctitloCobrCdent\": 375970011613,\r\n    \"registrarTitulo\": 1,\r\n    \"nroCpfCnpjBenef\": 68542653,\r\n    \"codUsuario\": \"APISERVIC\",\r\n    \"filCpfCnpjBenef\": 1018,\r\n    \"tipoAcesso\": 2,\r\n    \"digCpfCnpjBenef\": 38,\r\n    \"cpssoaJuridContr\": \"2337686\",\r\n    \"ctpoContrNegoc\": 1,\r\n    \"cidtfdProdCobr\": 9,\r\n    \"nseqContrNegoc\": \"2337686\",\r\n    \"cnegocCobr\": 111111111111111118,\r\n    \"filler\": \"\",\r\n    \"eNseqContrNegoc\": \"2337686\",\r\n    \"tipoRegistro\": 1,\r\n    \"codigoBanco\": 237,\r\n    \"cprodtServcOper\": 0,\r\n    \"demisTitloCobr\": \"13.09.2024\",\r\n    \"ctitloCliCdent\": \"TESTEHIB24\",\r\n    \"dvctoTitloCobr\": \"20.11.2024\",\r\n    \"cidtfdTpoVcto\": 0,\r\n    \"vnmnalTitloCobr\": 22170,\r\n    \"cindcdEconmMoeda\": 9,\r\n    \"cespceTitloCobr\": 2,\r\n    \"qmoedaNegocTitlo\": 0,\r\n    \"ctpoProteTitlo\": 0,\r\n    \"cindcdAceitSacdo\": \"N\",\r\n    \"ctpoPrzProte\": 0,\r\n    \"ctpoPrzDecurs\": 0,\r\n    \"ctpoProteDecurs\": 0,\r\n    \"cctrlPartcTitlo\": 0,\r\n    \"cindcdPgtoParcial\": \"N\",\r\n    \"cformaEmisPplta\": \"02\",\r\n    \"qtdePgtoParcial\": 0,\r\n    \"qtdDecurPrz\": \"0\",\r\n    \"codNegativacao\": \"0\",\r\n    \"diasNegativacao\": \"0\",\r\n    \"ptxJuroVcto\": 0,\r\n    \"filler1\": \"\",\r\n    \"vdiaJuroMora\": 20,\r\n    \"pmultaAplicVcto\": 0,\r\n    \"qdiaInicJuro\": 1,\r\n    \"vmultaAtrsoPgto\": 100,\r\n    \"qdiaInicMulta\": 1,\r\n    \"pdescBonifPgto01\": 0,\r\n    \"vdescBonifPgto01\": 0,\r\n    \"dlimDescBonif1\": \"\",\r\n    \"pdescBonifPgto02\": 0,\r\n    \"vdescBonifPgto02\": 0,\r\n    \"dlimDescBonif2\": \"\",\r\n    \"pdescBonifPgto03\": 0,\r\n    \"vdescBonifPgto03\": 0,\r\n    \"dlimDescBonif3\": \"\",\r\n    \"ctpoPrzCobr\": 0,\r\n    \"pdescBonifPgto\": \"\",\r\n    \"dlimBonifPgto\": \"\",\r\n    \"vdescBonifPgto\": \"\",\r\n    \"vabtmtTitloCobr\": 0,\r\n    \"filler2\": \"\",\r\n    \"viofPgtoTitlo\": 0,\r\n    \"isacdoTitloCobr\": \"TESTE EMPRESA PGIT\",\r\n    \"enroLogdrSacdo\": \"1197\",\r\n    \"elogdrSacdoTitlo\": \"RUA JOAQUIM FERREIRA\",\r\n    \"ecomplLogdrSacdo\": \"\",\r\n    \"ccepSacdoTitlo\": \"41502\",\r\n    \"ebairoLogdrSacdo\": \"JARDIM DAS MARGARIDAS\",\r\n    \"ccomplCepSacdo\": \"200\",\r\n    \"imunSacdoTitlo\": \"SALVADOR\",\r\n    \"indCpfCnpjSacdo\": 2,\r\n    \"csglUfSacdo\": \"BA\",\r\n    \"renderEletrSacdo\": \"\",\r\n    \"cdddFoneSacdo\": 0,\r\n    \"nroCpfCnpjSacdo\": 41641937000123,\r\n    \"bancoDeb\": 0,\r\n    \"cfoneSacdoTitlo\": 0,\r\n    \"agenciaDebDv\": 0,\r\n    \"agenciaDeb\": 0,\r\n    \"bancoCentProt\": 0,\r\n    \"contaDeb\": 0,\r\n    \"isacdrAvalsTitlo\": \"\",\r\n    \"agenciaDvCentPr\": 0,\r\n    \"enroLogdrSacdr\": \"0\",\r\n    \"elogdrSacdrAvals\": \"\",\r\n    \"ecomplLogdrSacdr\": \"\",\r\n    \"ccomplCepSacdr\": 0,\r\n    \"ebairoLogdrSacdr\": \"\",\r\n    \"csglUfSacdr\": \"\",\r\n    \"ccepSacdrTitlo\": 0,\r\n    \"imunSacdrAvals\": \"\",\r\n    \"indCpfCnpjSacdr\": 0,\r\n    \"renderEletrSacdr\": \"\",\r\n    \"nroCpfCnpjSacdr\": 0,\r\n    \"cdddFoneSacdr\": 0,\r\n    \"filler3\": \"0\",\r\n    \"cfoneSacdrTitlo\": 0,\r\n    \"iconcPgtoSpi\": \"\",\r\n    \"fase\": \"1\",\r\n    \"cindcdCobrMisto\": \"S\",\r\n    \"ialiasAdsaoCta\": \"\",\r\n    \"ilinkGeracQrcd\": \"\",\r\n    \"caliasAdsaoCta\": \"\",\r\n    \"wqrcdPdraoMercd\": \"\",\r\n    \"filler4\": \"\",\r\n    \"validadeAposVencimento\": \"\",\r\n    \"idLoc\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-registro/v1/gerarBoleto",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-registro",
+										"v1",
+										"gerarBoleto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Gerar Boleto de Cobrança  - Acesso a negociação não autorizada",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ctitloCobrCdent\": 0,\r\n    \"registrarTitulo\": 1,\r\n    \"nroCpfCnpjBenef\": 68542659,\r\n    \"codUsuario\": \"APISERVIC\",\r\n    \"filCpfCnpjBenef\": 1018,\r\n    \"tipoAcesso\": 2,\r\n    \"digCpfCnpjBenef\": 38,\r\n    \"cpssoaJuridContr\": \"2337686\",\r\n    \"ctpoContrNegoc\": 1,\r\n    \"cidtfdProdCobr\": 9,\r\n    \"nseqContrNegoc\": \"2337686\",\r\n    \"cnegocCobr\": 111111111111111114,\r\n    \"filler\": \"\",\r\n    \"eNseqContrNegoc\": \"2337686\",\r\n    \"tipoRegistro\": 1,\r\n    \"codigoBanco\": 237,\r\n    \"cprodtServcOper\": 0,\r\n    \"demisTitloCobr\": \"13.09.2024\",\r\n    \"ctitloCliCdent\": \"TESTEHIB24\",\r\n    \"dvctoTitloCobr\": \"20.11.2024\",\r\n    \"cidtfdTpoVcto\": 0,\r\n    \"vnmnalTitloCobr\": 22170,\r\n    \"cindcdEconmMoeda\": 9,\r\n    \"cespceTitloCobr\": 2,\r\n    \"qmoedaNegocTitlo\": 0,\r\n    \"ctpoProteTitlo\": 0,\r\n    \"cindcdAceitSacdo\": \"N\",\r\n    \"ctpoPrzProte\": 0,\r\n    \"ctpoPrzDecurs\": 0,\r\n    \"ctpoProteDecurs\": 0,\r\n    \"cctrlPartcTitlo\": 0,\r\n    \"cindcdPgtoParcial\": \"N\",\r\n    \"cformaEmisPplta\": \"02\",\r\n    \"qtdePgtoParcial\": 0,\r\n    \"qtdDecurPrz\": \"0\",\r\n    \"codNegativacao\": \"0\",\r\n    \"diasNegativacao\": \"0\",\r\n    \"ptxJuroVcto\": 0,\r\n    \"filler1\": \"\",\r\n    \"vdiaJuroMora\": 20,\r\n    \"pmultaAplicVcto\": 0,\r\n    \"qdiaInicJuro\": 1,\r\n    \"vmultaAtrsoPgto\": 100,\r\n    \"qdiaInicMulta\": 1,\r\n    \"pdescBonifPgto01\": 0,\r\n    \"vdescBonifPgto01\": 0,\r\n    \"dlimDescBonif1\": \"\",\r\n    \"pdescBonifPgto02\": 0,\r\n    \"vdescBonifPgto02\": 0,\r\n    \"dlimDescBonif2\": \"\",\r\n    \"pdescBonifPgto03\": 0,\r\n    \"vdescBonifPgto03\": 0,\r\n    \"dlimDescBonif3\": \"\",\r\n    \"ctpoPrzCobr\": 0,\r\n    \"pdescBonifPgto\": \"\",\r\n    \"dlimBonifPgto\": \"\",\r\n    \"vdescBonifPgto\": \"\",\r\n    \"vabtmtTitloCobr\": 0,\r\n    \"filler2\": \"\",\r\n    \"viofPgtoTitlo\": 0,\r\n    \"isacdoTitloCobr\": \"TESTE EMPRESA PGIT\",\r\n    \"enroLogdrSacdo\": \"1197\",\r\n    \"elogdrSacdoTitlo\": \"RUA JOAQUIM FERREIRA\",\r\n    \"ecomplLogdrSacdo\": \"\",\r\n    \"ccepSacdoTitlo\": \"41502\",\r\n    \"ebairoLogdrSacdo\": \"JARDIM DAS MARGARIDAS\",\r\n    \"ccomplCepSacdo\": \"200\",\r\n    \"imunSacdoTitlo\": \"SALVADOR\",\r\n    \"indCpfCnpjSacdo\": 2,\r\n    \"csglUfSacdo\": \"BA\",\r\n    \"renderEletrSacdo\": \"\",\r\n    \"cdddFoneSacdo\": 0,\r\n    \"nroCpfCnpjSacdo\": 41641937000123,\r\n    \"bancoDeb\": 0,\r\n    \"cfoneSacdoTitlo\": 0,\r\n    \"agenciaDebDv\": 0,\r\n    \"agenciaDeb\": 0,\r\n    \"bancoCentProt\": 0,\r\n    \"contaDeb\": 0,\r\n    \"isacdrAvalsTitlo\": \"\",\r\n    \"agenciaDvCentPr\": 0,\r\n    \"enroLogdrSacdr\": \"0\",\r\n    \"elogdrSacdrAvals\": \"\",\r\n    \"ecomplLogdrSacdr\": \"\",\r\n    \"ccomplCepSacdr\": 0,\r\n    \"ebairoLogdrSacdr\": \"\",\r\n    \"csglUfSacdr\": \"\",\r\n    \"ccepSacdrTitlo\": 0,\r\n    \"imunSacdrAvals\": \"\",\r\n    \"indCpfCnpjSacdr\": 0,\r\n    \"renderEletrSacdr\": \"\",\r\n    \"nroCpfCnpjSacdr\": 0,\r\n    \"cdddFoneSacdr\": 0,\r\n    \"filler3\": \"0\",\r\n    \"cfoneSacdrTitlo\": 0,\r\n    \"iconcPgtoSpi\": \"\",\r\n    \"fase\": \"1\",\r\n    \"cindcdCobrMisto\": \"S\",\r\n    \"ialiasAdsaoCta\": \"\",\r\n    \"ilinkGeracQrcd\": \"\",\r\n    \"caliasAdsaoCta\": \"\",\r\n    \"wqrcdPdraoMercd\": \"\",\r\n    \"validadeAposVencimento\": \"\",\r\n    \"idLoc\": \"\",\r\n    \"filler4\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-registro/v1/gerarBoleto",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-registro",
+										"v1",
+										"gerarBoleto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Gerar Boleto de Cobrança - Dados inconsistentes",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ctitloCobrCdent\": 0,\r\n    \"registrarTitulo\": 1,\r\n    \"nroCpfCnpjBenef\": 68542653,\r\n    \"codUsuario\": \"APISERV\",\r\n    \"filCpfCnpjBenef\": \"1018\",\r\n    \"tipoAcesso\": 2,\r\n    \"digCpfCnpjBenef\": 38,\r\n    \"cpssoaJuridContr\": \"\",\r\n    \"ctpoContrNegoc\": \"\",\r\n    \"cidtfdProdCobr\": 9,\r\n    \"nseqContrNegoc\": \"\",\r\n    \"cnegocCobr\": 111111111111111115,\r\n    \"filler\": \"\",\r\n    \"eNseqContrNegoc\": \"\",\r\n    \"tipoRegistro\": 1,\r\n    \"codigoBanco\": 237,\r\n    \"cprodtServcOper\": \"\",\r\n    \"demisTitloCobr\": \"17.12.2024\",\r\n    \"ctitloCliCdent\": \"TESTEBIA\",\r\n    \"dvctoTitloCobr\": \"20.02.2025\",\r\n    \"cidtfdTpoVcto\": \"\",\r\n    \"vnmnalTitloCobr\": 6000,\r\n    \"cindcdEconmMoeda\": 9,\r\n    \"cespceTitloCobr\": 2,\r\n    \"qmoedaNegocTitlo\": 0,\r\n    \"ctpoProteTitlo\": 0,\r\n    \"cindcdAceitSacdo\": \"N\",\r\n    \"ctpoPrzProte\": 0,\r\n    \"ctpoPrzDecurs\": 0,\r\n    \"ctpoProteDecurs\": 0,\r\n    \"cctrlPartcTitlo\": 0,\r\n    \"cindcdPgtoParcial\": \"N\",\r\n    \"cformaEmisPplta\": \"02\",\r\n    \"qtdePgtoParcial\": 0,\r\n    \"qtdDecurPrz\": \"0\",\r\n    \"codNegativacao\": \"0\",\r\n    \"diasNegativacao\": \"0\",\r\n    \"ptxJuroVcto\": 0,\r\n    \"filler1\": \"\",\r\n    \"vdiaJuroMora\": 0,\r\n    \"pmultaAplicVcto\": 0,\r\n    \"qdiaInicJuro\": 0,\r\n    \"vmultaAtrsoPgto\": 0,\r\n    \"pdescBonifPgto01\": 0,\r\n    \"qdiaInicMulta\": 0,\r\n    \"vdescBonifPgto01\": 0,\r\n    \"pdescBonifPgto02\": 0,\r\n    \"dlimDescBonif1\": \"\",\r\n    \"vdescBonifPgto02\": 0,\r\n    \"pdescBonifPgto03\": 0,\r\n    \"dlimDescBonif2\": \"\",\r\n    \"vdescBonifPgto03\": 0,\r\n    \"ctpoPrzCobr\": 0,\r\n    \"dlimDescBonif3\": \"\",\r\n    \"pdescBonifPgto\": 0,\r\n    \"dlimBonifPgto\": \"\",\r\n    \"vdescBonifPgto\": 0,\r\n    \"vabtmtTitloCobr\": 0,\r\n    \"filler2\": \"\",\r\n    \"viofPgtoTitlo\": 0,\r\n    \"isacdoTitloCobr\": \"TESTE EMPRESA PGIT\",\r\n    \"enroLogdrSacdo\": \"TESTE\",\r\n    \"elogdrSacdoTitlo\": \"TESTE\",\r\n    \"ecomplLogdrSacdo\": \"TESTE\",\r\n    \"ccepSacdoTitlo\": 6332,\r\n    \"ebairoLogdrSacdo\": \"TESTE\",\r\n    \"ccomplCepSacdo\": 130,\r\n    \"imunSacdoTitlo\": \"TESTE\",\r\n    \"indCpfCnpjSacdo\": 1,\r\n    \"csglUfSacdo\": \"SP\",\r\n    \"renderEletrSacdo\": \"\",\r\n    \"cdddFoneSacdo\": 0,\r\n    \"nroCpfCnpjSacdo\": 38453450803,\r\n    \"bancoDeb\": 0,\r\n    \"cfoneSacdoTitlo\": 0,\r\n    \"agenciaDebDv\": 0,\r\n    \"agenciaDeb\": 0,\r\n    \"bancoCentProt\": 0,\r\n    \"contaDeb\": 0,\r\n    \"isacdrAvalsTitlo\": \"\",\r\n    \"agenciaDvCentPr\": 0,\r\n    \"enroLogdrSacdr\": \"0\",\r\n    \"elogdrSacdrAvals\": \"\",\r\n    \"ecomplLogdrSacdr\": \"\",\r\n    \"ccomplCepSacdr\": 0,\r\n    \"ebairoLogdrSacdr\": \"\",\r\n    \"csglUfSacdr\": \"\",\r\n    \"ccepSacdrTitlo\": 0,\r\n    \"imunSacdrAvals\": \"\",\r\n    \"indCpfCnpjSacdr\": 0,\r\n    \"renderEletrSacdr\": \"\",\r\n    \"nroCpfCnpjSacdr\": 0,\r\n    \"cdddFoneSacdr\": 0,\r\n    \"filler3\": \"0\",\r\n    \"cfoneSacdrTitlo\": 0,\r\n    \"iconcPgtoSpi\": \"\",\r\n    \"fase\": \"1\",\r\n    \"cindcdCobrMisto\": \"S\",\r\n    \"ialiasAdsaoCta\": \"\",\r\n    \"ilinkGeracQrcd\": \"\",\r\n    \"caliasAdsaoCta\": \"\",\r\n    \"wqrcdPdraoMercd\": \"\",\r\n    \"validadeAposVencimento\": \"\",\r\n    \"filler4\": \"\",\r\n    \"idLoc\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-registro/v1/gerarBoleto",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-registro",
+										"v1",
+										"gerarBoleto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Gerar Boleto de Cobrança - Data de vencimento inferior a emissão do titulo",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ctitloCobrCdent\": 0,\r\n    \"registrarTitulo\": 1,\r\n    \"nroCpfCnpjBenef\": 68542653,\r\n    \"codUsuario\": \"APISERVIC\",\r\n    \"filCpfCnpjBenef\": 1018,\r\n    \"tipoAcesso\": 2,\r\n    \"digCpfCnpjBenef\": 38,\r\n    \"cpssoaJuridContr\": \"2337686\",\r\n    \"ctpoContrNegoc\": 1,\r\n    \"cidtfdProdCobr\": 9,\r\n    \"nseqContrNegoc\": \"2337686\",\r\n    \"cnegocCobr\": 111111111111111116,\r\n    \"filler\": \"\",\r\n    \"eNseqContrNegoc\": \"2337686\",\r\n    \"tipoRegistro\": 1,\r\n    \"codigoBanco\": 237,\r\n    \"cprodtServcOper\": 0,\r\n    \"demisTitloCobr\": \"13.12.2024\",\r\n    \"ctitloCliCdent\": \"TESTEHIB24\",\r\n    \"dvctoTitloCobr\": \"20.11.2024\",\r\n    \"cidtfdTpoVcto\": 0,\r\n    \"vnmnalTitloCobr\": 22170,\r\n    \"cindcdEconmMoeda\": 9,\r\n    \"cespceTitloCobr\": 2,\r\n    \"qmoedaNegocTitlo\": 0,\r\n    \"ctpoProteTitlo\": 0,\r\n    \"cindcdAceitSacdo\": \"N\",\r\n    \"ctpoPrzProte\": 0,\r\n    \"ctpoPrzDecurs\": 0,\r\n    \"ctpoProteDecurs\": 0,\r\n    \"cctrlPartcTitlo\": 0,\r\n    \"cindcdPgtoParcial\": \"N\",\r\n    \"cformaEmisPplta\": \"02\",\r\n    \"qtdePgtoParcial\": 0,\r\n    \"qtdDecurPrz\": \"0\",\r\n    \"codNegativacao\": \"0\",\r\n    \"diasNegativacao\": \"0\",\r\n    \"ptxJuroVcto\": 0,\r\n    \"filler1\": \"\",\r\n    \"vdiaJuroMora\": 20,\r\n    \"pmultaAplicVcto\": 0,\r\n    \"qdiaInicJuro\": 1,\r\n    \"vmultaAtrsoPgto\": 100,\r\n    \"qdiaInicMulta\": 1,\r\n    \"pdescBonifPgto01\": 0,\r\n    \"vdescBonifPgto01\": 0,\r\n    \"dlimDescBonif1\": \"\",\r\n    \"pdescBonifPgto02\": 0,\r\n    \"vdescBonifPgto02\": 0,\r\n    \"dlimDescBonif2\": \"\",\r\n    \"pdescBonifPgto03\": 0,\r\n    \"vdescBonifPgto03\": 0,\r\n    \"dlimDescBonif3\": \"\",\r\n    \"ctpoPrzCobr\": 0,\r\n    \"pdescBonifPgto\": \"\",\r\n    \"dlimBonifPgto\": \"\",\r\n    \"vdescBonifPgto\": \"\",\r\n    \"vabtmtTitloCobr\": 0,\r\n    \"filler2\": \"\",\r\n    \"viofPgtoTitlo\": 0,\r\n    \"isacdoTitloCobr\": \"TESTE EMPRESA PGIT\",\r\n    \"enroLogdrSacdo\": \"1197\",\r\n    \"elogdrSacdoTitlo\": \"RUA JOAQUIM FERREIRA\",\r\n    \"ecomplLogdrSacdo\": \"\",\r\n    \"ccepSacdoTitlo\": \"41502\",\r\n    \"ebairoLogdrSacdo\": \"JARDIM DAS MARGARIDAS\",\r\n    \"ccomplCepSacdo\": \"200\",\r\n    \"imunSacdoTitlo\": \"SALVADOR\",\r\n    \"indCpfCnpjSacdo\": 2,\r\n    \"csglUfSacdo\": \"BA\",\r\n    \"renderEletrSacdo\": \"\",\r\n    \"cdddFoneSacdo\": 0,\r\n    \"nroCpfCnpjSacdo\": 41641937000123,\r\n    \"bancoDeb\": 0,\r\n    \"cfoneSacdoTitlo\": 0,\r\n    \"agenciaDebDv\": 0,\r\n    \"agenciaDeb\": 0,\r\n    \"bancoCentProt\": 0,\r\n    \"contaDeb\": 0,\r\n    \"isacdrAvalsTitlo\": \"\",\r\n    \"agenciaDvCentPr\": 0,\r\n    \"enroLogdrSacdr\": \"0\",\r\n    \"elogdrSacdrAvals\": \"\",\r\n    \"ecomplLogdrSacdr\": \"\",\r\n    \"ccomplCepSacdr\": 0,\r\n    \"ebairoLogdrSacdr\": \"\",\r\n    \"csglUfSacdr\": \"\",\r\n    \"ccepSacdrTitlo\": 0,\r\n    \"imunSacdrAvals\": \"\",\r\n    \"indCpfCnpjSacdr\": 0,\r\n    \"renderEletrSacdr\": \"\",\r\n    \"nroCpfCnpjSacdr\": 0,\r\n    \"cdddFoneSacdr\": 0,\r\n    \"filler3\": \"0\",\r\n    \"cfoneSacdrTitlo\": 0,\r\n    \"iconcPgtoSpi\": \"\",\r\n    \"fase\": \"1\",\r\n    \"cindcdCobrMisto\": \"S\",\r\n    \"ialiasAdsaoCta\": \"\",\r\n    \"ilinkGeracQrcd\": \"\",\r\n    \"caliasAdsaoCta\": \"\",\r\n    \"wqrcdPdraoMercd\": \"\",\r\n    \"filler4\": \"\",\r\n    \"validadeAposVencimento\": \"\",\r\n    \"idLoc\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-registro/v1/gerarBoleto",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-registro",
+										"v1",
+										"gerarBoleto"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Alterar Boleto de Cobrança Hibrida",
+					"item": [
+						{
+							"name": "Alterar Boleto de Cobrança Híbrida - Sucesso",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									},
+									{
+										"key": "txId",
+										"value": "20241122237093995007555702570068544",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"codUsuario\": \"NETEMPR\",\r\n    \"vnmnalTitloCobr\": 655,\r\n    \"chave\": {\r\n        \"cnpjCpf\": 38052160,\r\n        \"filial\": 57,\r\n        \"controle\": \"01\",\r\n        \"idprod\": 9,\r\n        \"ctaprod\": 39950075557,\r\n        \"nossoNumero\": \"2570068544\"\r\n    },\r\n    \"dadosTitulo\": {\r\n        \"seuNumero\": \"JFM ALT 1010\",\r\n        \"dataEmissao\": 0,\r\n        \"especie\": \"002\",\r\n        \"dataVencimento\": 22122024,\r\n        \"codVencimento\": 0,\r\n        \"codInstrucaoProtesto\": 0,\r\n        \"diasProtesto\": 0,\r\n        \"codDecurso\": 0,\r\n        \"diasDecurso\": 0,\r\n        \"codAbatimento\": 0,\r\n        \"valorAbatimentoTitulo\": 0,\r\n        \"dataPrimeiroDesc\": 0,\r\n        \"valorPrimeiroDesc\": 0,\r\n        \"codPrimeiroDesc\": 0,\r\n        \"acaoPrimeiroDesc\": 0,\r\n        \"dataSegundoDesc\": 0,\r\n        \"valorSegundoDesc\": 0,\r\n        \"codSegundoDesc\": 0,\r\n        \"acaoSegundoDesc\": 0,\r\n        \"dataTerceiroDesc\": 0,\r\n        \"valorTerceiroDesc\": 0,\r\n        \"codTerceiroDesc\": 0,\r\n        \"acaoTerceiroDesc\": 0,\r\n        \"controleParticipante\": \"11111111111111111\",\r\n        \"idAvisoSacado\": \"S\",\r\n        \"diasAposVencidoJuros\": 0,\r\n        \"valorJuros\": 0,\r\n        \"codJuros\": 0,\r\n        \"diasAposVencimentoMulta\": 0,\r\n        \"valorMulta\": 0,\r\n        \"codMulta\": 0,\r\n        \"codNegativacao\": 0,\r\n        \"diasNegativacao\": 0,\r\n        \"codPagamentoParcial\": \"N\",\r\n        \"qtdePagamentosParciais\": 0,\r\n        \"sacado\": \"\",\r\n        \"cgcCpfSacado\": \"0\",\r\n        \"endereco\": \"\",\r\n        \"cep\": 0,\r\n        \"cepSuf\": 0,\r\n        \"sacadorAvalista\": \"\",\r\n        \"aceite\": \"0\",\r\n        \"cgcCpfAvalista\": \"0\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-alteracao/v1/alteraBoletoConsulta",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-alteracao",
+										"v1",
+										"alteraBoletoConsulta"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alterar Boleto de Cobrança Híbrida - Dados faltantes para desconto",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									},
+									{
+										"key": "txId",
+										"value": "20241122237093995007555702570068544",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"codUsuario\": \"NETEMPR\",\r\n    \"vnmnalTitloCobr\": 655,\r\n    \"chave\": {\r\n        \"cnpjCpf\": 38052160,\r\n        \"filial\": 57,\r\n        \"controle\": \"01\",\r\n        \"idprod\": 9,\r\n        \"ctaprod\": 39950075557,\r\n        \"nossoNumero\": \"2570068544\"\r\n    },\r\n    \"dadosTitulo\": {\r\n        \"seuNumero\": \"JFM ALT 1010\",\r\n        \"dataEmissao\": 0,\r\n        \"especie\": \"002\",\r\n        \"dataVencimento\": 22122024,\r\n        \"codVencimento\": 0,\r\n        \"codInstrucaoProtesto\": 0,\r\n        \"diasProtesto\": 0,\r\n        \"codDecurso\": 0,\r\n        \"diasDecurso\": 0,\r\n        \"codAbatimento\": 0,\r\n        \"valorAbatimentoTitulo\": 0,\r\n        \"dataPrimeiroDesc\": 24122024,\r\n        \"valorPrimeiroDesc\": 123456,\r\n        \"codPrimeiroDesc\": 1,\r\n        \"acaoPrimeiroDesc\": 0,\r\n        \"dataSegundoDesc\": 0,\r\n        \"valorSegundoDesc\": 0,\r\n        \"codSegundoDesc\": 0,\r\n        \"acaoSegundoDesc\": 0,\r\n        \"dataTerceiroDesc\": 0,\r\n        \"valorTerceiroDesc\": 0,\r\n        \"codTerceiroDesc\": 0,\r\n        \"acaoTerceiroDesc\": 0,\r\n        \"controleParticipante\": \"11111111111111112\",\r\n        \"idAvisoSacado\": \"S\",\r\n        \"diasAposVencidoJuros\": 0,\r\n        \"valorJuros\": 0,\r\n        \"codJuros\": 0,\r\n        \"diasAposVencimentoMulta\": 0,\r\n        \"valorMulta\": 0,\r\n        \"codMulta\": 0,\r\n        \"codNegativacao\": 0,\r\n        \"diasNegativacao\": 0,\r\n        \"codPagamentoParcial\": \"N\",\r\n        \"qtdePagamentosParciais\": 0,\r\n        \"sacado\": \"\",\r\n        \"cgcCpfSacado\": \"0\",\r\n        \"endereco\": \"\",\r\n        \"cep\": 0,\r\n        \"cepSuf\": 0,\r\n        \"sacadorAvalista\": \"\",\r\n        \"aceite\": \"0\",\r\n        \"cgcCpfAvalista\": \"0\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-alteracao/v1/alteraBoletoConsulta",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-alteracao",
+										"v1",
+										"alteraBoletoConsulta"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alterar Boleto de Cobrança Híbrida - Usuário não autorizado",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									},
+									{
+										"key": "txId",
+										"value": "20241122237093995007555702570068544",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n      \"codUsuario\": \"NETEMPR\",\r\n      \"vnmnalTitloCobr\": 655,\r\n      \"chave\": {\r\n        \"cnpjCpf\": 38052160,\r\n        \"filial\": 57,\r\n        \"controle\": \"01\",\r\n        \"idprod\": 9,\r\n        \"ctaprod\": 3995007555,\r\n        \"nossoNumero\": \"2570068544\"\r\n      },\r\n      \"dadosTitulo\": {\r\n        \"seuNumero\": \"JFM ALT 1010\",\r\n        \"dataEmissao\": 0,\r\n        \"especie\": \"002\",\r\n        \"dataVencimento\": 22122024,\r\n        \"codVencimento\": 0,\r\n        \"codInstrucaoProtesto\": 0,\r\n        \"diasProtesto\": 0,\r\n        \"codDecurso\": 0,\r\n        \"diasDecurso\": 0,\r\n        \"codAbatimento\": 0,\r\n        \"valorAbatimentoTitulo\": 0,\r\n        \"dataPrimeiroDesc\": 0,\r\n        \"valorPrimeiroDesc\": 0,\r\n        \"codPrimeiroDesc\": 0,\r\n        \"acaoPrimeiroDesc\": 0,\r\n        \"dataSegundoDesc\": 0,\r\n        \"valorSegundoDesc\": 0,\r\n        \"codSegundoDesc\": 0,\r\n        \"acaoSegundoDesc\": 0,\r\n        \"dataTerceiroDesc\": 0,\r\n        \"valorTerceiroDesc\": 0,\r\n        \"codTerceiroDesc\": 0,\r\n        \"acaoTerceiroDesc\": 0,\r\n        \"controleParticipante\": \"11111111111111113\",\r\n        \"idAvisoSacado\": \"S\",\r\n        \"diasAposVencidoJuros\": 0,\r\n        \"valorJuros\": 0,\r\n        \"codJuros\": 0,\r\n        \"diasAposVencimentoMulta\": 0,\r\n        \"valorMulta\": 0,\r\n        \"codMulta\": 0,\r\n        \"codNegativacao\": 0,\r\n        \"diasNegativacao\": 0,\r\n        \"codPagamentoParcial\": \"N\",\r\n        \"qtdePagamentosParciais\": 0,\r\n        \"sacado\": \"\",\r\n        \"cgcCpfSacado\": \"0\",\r\n        \"endereco\": \"\",\r\n        \"cep\": 0,\r\n        \"cepSuf\": 0,\r\n        \"sacadorAvalista\": \"\",\r\n        \"aceite\": \"0\",\r\n        \"cgcCpfAvalista\": \"0\"\r\n      }\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-alteracao/v1/alteraBoletoConsulta",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-alteracao",
+										"v1",
+										"alteraBoletoConsulta"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alterar Boleto de Cobrança Híbrida - CPF/CNPJ inválido",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									},
+									{
+										"key": "txId",
+										"value": "20241122237093995007555702570068544",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n      \"codUsuario\": \"NETEMPR\",\r\n      \"vnmnalTitloCobr\": 655,\r\n      \"chave\": {\r\n        \"cnpjCpf\": 3805160,\r\n        \"filial\": 57,\r\n        \"controle\": \"01\",\r\n        \"idprod\": 9,\r\n        \"ctaprod\": 39950075557,\r\n        \"nossoNumero\": \"2570068544\"\r\n      },\r\n      \"dadosTitulo\": {\r\n        \"seuNumero\": \"JFM ALT 1010\",\r\n        \"dataEmissao\": 0,\r\n        \"especie\": \"002\",\r\n        \"dataVencimento\": 22122024,\r\n        \"codVencimento\": 0,\r\n        \"codInstrucaoProtesto\": 0,\r\n        \"diasProtesto\": 0,\r\n        \"codDecurso\": 0,\r\n        \"diasDecurso\": 0,\r\n        \"codAbatimento\": 0,\r\n        \"valorAbatimentoTitulo\": 0,\r\n        \"dataPrimeiroDesc\": 0,\r\n        \"valorPrimeiroDesc\": 0,\r\n        \"codPrimeiroDesc\": 0,\r\n        \"acaoPrimeiroDesc\": 0,\r\n        \"dataSegundoDesc\": 0,\r\n        \"valorSegundoDesc\": 0,\r\n        \"codSegundoDesc\": 0,\r\n        \"acaoSegundoDesc\": 0,\r\n        \"dataTerceiroDesc\": 0,\r\n        \"valorTerceiroDesc\": 0,\r\n        \"codTerceiroDesc\": 0,\r\n        \"acaoTerceiroDesc\": 0,\r\n        \"controleParticipante\": \"11111111111111112\",\r\n        \"idAvisoSacado\": \"S\",\r\n        \"diasAposVencidoJuros\": 0,\r\n        \"valorJuros\": 0,\r\n        \"codJuros\": 0,\r\n        \"diasAposVencimentoMulta\": 0,\r\n        \"valorMulta\": 0,\r\n        \"codMulta\": 0,\r\n        \"codNegativacao\": 0,\r\n        \"diasNegativacao\": 0,\r\n        \"codPagamentoParcial\": \"N\",\r\n        \"qtdePagamentosParciais\": 0,\r\n        \"sacado\": \"\",\r\n        \"cgcCpfSacado\": \"0\",\r\n        \"endereco\": \"\",\r\n        \"cep\": 0,\r\n        \"cepSuf\": 0,\r\n        \"sacadorAvalista\": \"\",\r\n        \"aceite\": \"0\",\r\n        \"cgcCpfAvalista\": \"0\"\r\n      }\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-alteracao/v1/alteraBoletoConsulta",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-alteracao",
+										"v1",
+										"alteraBoletoConsulta"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alterar Boleto de Cobrança Híbrida - Data de vencimento inferior a emissão",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									},
+									{
+										"key": "txId",
+										"value": "20241122237093995007555702570068544",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"codUsuario\": \"NETEMPR\",\r\n    \"vnmnalTitloCobr\": 655,\r\n    \"chave\": {\r\n        \"cnpjCpf\": 38052160,\r\n        \"filial\": 57,\r\n        \"controle\": \"01\",\r\n        \"idprod\": 9,\r\n        \"ctaprod\": 39950075557,\r\n        \"nossoNumero\": \"2570068544\"\r\n    },\r\n    \"dadosTitulo\": {\r\n        \"seuNumero\": \"JFM ALT 1010\",\r\n        \"dataEmissao\": 0,\r\n        \"especie\": \"002\",\r\n        \"dataVencimento\": 22102024,\r\n        \"codVencimento\": 0,\r\n        \"codInstrucaoProtesto\": 0,\r\n        \"diasProtesto\": 0,\r\n        \"codDecurso\": 0,\r\n        \"diasDecurso\": 0,\r\n        \"codAbatimento\": 0,\r\n        \"valorAbatimentoTitulo\": 0,\r\n        \"dataPrimeiroDesc\": 0,\r\n        \"valorPrimeiroDesc\": 0,\r\n        \"codPrimeiroDesc\": 0,\r\n        \"acaoPrimeiroDesc\": 0,\r\n        \"dataSegundoDesc\": 0,\r\n        \"valorSegundoDesc\": 0,\r\n        \"codSegundoDesc\": 0,\r\n        \"acaoSegundoDesc\": 0,\r\n        \"dataTerceiroDesc\": 0,\r\n        \"valorTerceiroDesc\": 0,\r\n        \"codTerceiroDesc\": 0,\r\n        \"acaoTerceiroDesc\": 0,\r\n        \"controleParticipante\": \"11111111111111115\",\r\n        \"idAvisoSacado\": \"S\",\r\n        \"diasAposVencidoJuros\": 0,\r\n        \"valorJuros\": 0,\r\n        \"codJuros\": 0,\r\n        \"diasAposVencimentoMulta\": 0,\r\n        \"valorMulta\": 0,\r\n        \"codMulta\": 0,\r\n        \"codNegativacao\": 0,\r\n        \"diasNegativacao\": 0,\r\n        \"codPagamentoParcial\": \"N\",\r\n        \"qtdePagamentosParciais\": 0,\r\n        \"sacado\": \"\",\r\n        \"cgcCpfSacado\": \"0\",\r\n        \"endereco\": \"\",\r\n        \"cep\": 0,\r\n        \"cepSuf\": 0,\r\n        \"sacadorAvalista\": \"\",\r\n        \"aceite\": \"0\",\r\n        \"cgcCpfAvalista\": \"0\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-alteracao/v1/alteraBoletoConsulta",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-alteracao",
+										"v1",
+										"alteraBoletoConsulta"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cobrança - Solicitação de baixa de boleto",
+					"item": [
+						{
+							"name": "Solicitação Baixa de Título - Sucesso",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cpfCnpj\": {\r\n        \"cpfCnpj\": \"1234567\",\r\n        \"filial\": \"1\",\r\n        \"controle\": \"99\"\r\n    },\r\n    \"produto\": 9,\r\n    \"negociacao\": 28560222654,\r\n    \"nossoNumero\": \"50150001462\",\r\n    \"sequencia\": 0,\r\n    \"codigoBaixa\": 57\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto/cobranca-baixa/v1/baixar",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto",
+										"cobranca-baixa",
+										"v1",
+										"baixar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Solicitação Baixa de Título - Código de baixa inválido",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cpfCnpj\": {\r\n        \"cpfCnpj\": \"1234567\",\r\n        \"filial\": \"1\",\r\n        \"controle\": \"99\"\r\n    },\r\n    \"produto\": 9,\r\n    \"negociacao\": 28560222654,\r\n    \"nossoNumero\": 100,\r\n    \"sequencia\": 0,\r\n    \"codigoBaixa\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto/cobranca-baixa/v1/baixar",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto",
+										"cobranca-baixa",
+										"v1",
+										"baixar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Solicitação Baixa de Título - CPF/CNPJ inválido",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n      \"cpfCnpj\": { \r\n        \"cpfCnpj\": \"134567\", \r\n        \"filial\": \"1\", \r\n        \"controle\": \"99\" },\r\n      \"produto\": 9,\r\n      \"negociacao\": 28560222654,\r\n      \"nossoNumero\": 100,\r\n      \"sequencia\": 0,\r\n      \"codigoBaixa\": 57\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto/cobranca-baixa/v1/baixar",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto",
+										"cobranca-baixa",
+										"v1",
+										"baixar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Solicitação Baixa de Título - Titulo inexistente",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cpfCnpj\": {\r\n        \"cpfCnpj\": \"1234567\",\r\n        \"filial\": \"1\",\r\n        \"controle\": \"99\"\r\n    },\r\n    \"produto\": 9,\r\n    \"negociacao\": 28560222654,\r\n    \"nossoNumero\": 100,\r\n    \"sequencia\": 0,\r\n    \"codigoBaixa\": 57\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto/cobranca-baixa/v1/baixar",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto",
+										"cobranca-baixa",
+										"v1",
+										"baixar"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cobrança - Cadastro de Webhook",
+					"item": [
+						{
+							"name": "Permite operação de inclusão, alteração, consulta e exclusão - Sucesso",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n      \"documento\": {\r\n        \"cpfCnpj\":\"1234567\",\r\n        \"filial\":\"1\",\r\n        \"controle\":\"99\"\r\n      }\r\n    ,\r\n      \"versaoLayout\":\"1\",\r\n      \"tipoCadastro\":\"C\",\r\n      \"utilizaWebhook\":\"S\",\r\n      \"urlEnvio\":\"http://empresa.com.br\",\r\n      \"tipoAviso\":\"1\"\r\n    }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto/cobranca-webhook/v1/cadastrar",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto",
+										"cobranca-webhook",
+										"v1",
+										"cadastrar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Permite operação de inclusão, alteração, consulta e exclusão - Cliente sem cobrança",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"documento\": {\r\n        \"cpfCnpj\": \"1234510\",\r\n        \"filial\": \"1\",\r\n        \"controle\": \"10\"\r\n    },\r\n    \"versaoLayout\": \"1\",\r\n    \"tipoCadastro\": \"X\",\r\n    \"utilizaWebhook\": \"N\",\r\n    \"urlEnvio\": \"http://empresa.com.br\",\r\n    \"tipoAviso\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto/cobranca-webhook/v1/cadastrar",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto",
+										"cobranca-webhook",
+										"v1",
+										"cadastrar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Permite operação de inclusão, alteração, consulta e exclusão - Cliente sem cadastro webhook",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"documento\": {\r\n        \"cpfCnpj\": \"1234511\",\r\n        \"filial\": \"1\",\r\n        \"controle\": \"11\"\r\n    },\r\n    \"versaoLayout\": \"1\",\r\n    \"tipoCadastro\": \"X\",\r\n    \"utilizaWebhook\": \"N\",\r\n    \"urlEnvio\": \"http://empresa.com.br\",\r\n    \"tipoAviso\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto/cobranca-webhook/v1/cadastrar",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto",
+										"cobranca-webhook",
+										"v1",
+										"cadastrar"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cobrança com QRCode - Consulta e Segunda via de Boletos",
+					"item": [
+						{
+							"name": "Cobrança com QRCode - Consultar - Sucesso",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"contaProduto\": 38610041000,\r\n    \"controleCpfCnpjUsuario\": 38,\r\n    \"cpfCnpjUsuario\": 68542653,\r\n    \"filialCnpjUsuario\": 1018,\r\n    \"idProduto\": 9,\r\n    \"nomePersonalizado\": \"\",\r\n    \"nossoNumero\": 970039324,\r\n    \"seqTitulo\": 0,\r\n    \"status\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-consulta-titulo/v1/consultar",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-consulta-titulo",
+										"v1",
+										"consultar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cobrança com QRCode - Consultar - Erro negociação",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"contaProduto\": 38610041050,\r\n    \"controleCpfCnpjUsuario\": 38,\r\n    \"cpfCnpjUsuario\": 68542653,\r\n    \"filialCnpjUsuario\": 1018,\r\n    \"idProduto\": 9,\r\n    \"nomePersonalizado\": \"\",\r\n    \"nossoNumero\": 970039324,\r\n    \"seqTitulo\": 0,\r\n    \"status\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-consulta-titulo/v1/consultar",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-consulta-titulo",
+										"v1",
+										"consultar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cobrança com QRCode - Consultar - CPF/CNPJ inválido",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"contaProduto\": 38610041000,\r\n    \"controleCpfCnpjUsuario\": 38,\r\n    \"cpfCnpjUsuario\": 685426,\r\n    \"filialCnpjUsuario\": 1018,\r\n    \"idProduto\": 9,\r\n    \"nomePersonalizado\": \"\",\r\n    \"nossoNumero\": 974439345,\r\n    \"seqTitulo\": 0,\r\n    \"status\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-consulta-titulo/v1/consultar",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-consulta-titulo",
+										"v1",
+										"consultar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cobrança com QRCode - Consultar - Titulo Inexistente",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"contaProduto\": 38610041000,\r\n    \"controleCpfCnpjUsuario\": 38,\r\n    \"cpfCnpjUsuario\": 685426,\r\n    \"filialCnpjUsuario\": 1018,\r\n    \"idProduto\": 9,\r\n    \"nomePersonalizado\": \"\",\r\n    \"nossoNumero\": 38610041050,\r\n    \"seqTitulo\": 0,\r\n    \"status\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-consulta-titulo/v1/consultar",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-consulta-titulo",
+										"v1",
+										"consultar"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cobrança com QRCode - Reserva ID Location Copy",
+					"item": [
+						{
+							"name": "Cobrança com QRCode - Reserva ID Location - Sucesso",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n      \"codUsuario\": \"APISERVIC\",\r\n      \"cnpjCpfBnf\": 68542653,\r\n      \"cflialCnpjCpfBnf\": 1018,\r\n      \"cctrlCnpjCpfBnf\": 38,\r\n      \"cidtfdProdCobr\": 9,\r\n      \"agenciaCobr\": 3861,\r\n      \"contaCobr\": 41000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-reserva-location/v1/reservarLoc",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-reserva-location",
+										"v1",
+										"reservarLoc"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cobrança com QRCode - Reserva ID Location - Erro de comunicação",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"codUsuario\": \"OPENAPI\",\r\n    \"cnpjCpfBnf\": 68542653,\r\n    \"cflialCnpjCpfBnf\": 1018,\r\n    \"cctrlCnpjCpfBnf\": 38,\r\n    \"cidtfdProdCobr\": 9,    \r\n    \"agenciaCobr\": 3861,\r\n    \"contaCobr\": 41000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-reserva-location/v1/reservarLoc",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-reserva-location",
+										"v1",
+										"reservarLoc"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cobrança com QRCode - Reserva ID Location - Erro negociação",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n      \"codUsuario\": \"APISERVIC\",\r\n      \"cnpjCpfBnf\": 68542,\r\n      \"cflialCnpjCpfBnf\": 1018,\r\n      \"cctrlCnpjCpfBnf\": 38,\r\n      \"cidtfdProdCobr\": 9,\r\n      \"agenciaCobr\": 3861,\r\n      \"contaCobr\": 41000\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-reserva-location/v1/reservarLoc",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-reserva-location",
+										"v1",
+										"reservarLoc"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cobrança com Qr Code - Listar boletos liquidados",
+					"item": [
+						{
+							"name": "Cobrança com Qr Code - Listar boletos liquidados - Sucesso",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cpfCnpj\": {\r\n        \"cpfCnpj\": 114383908,\r\n        \"filial\": 0,\r\n        \"controle\": 7\r\n    },\r\n    \"produto\": 9,\r\n    \"negociacao\": 28560230114,\r\n    \"dataMovimentoDe\": 0,\r\n    \"dataMovimentoAte\": 0,\r\n    \"dataPagamentoDe\": 14092017,\r\n    \"dataPagamentoAte\": 15092025,\r\n    \"origemPagamento\": 0,\r\n    \"valorTituloDe\": 0,\r\n    \"valorTituloAte\": 0,\r\n    \"paginaAnterior\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-lista/v1/listar",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-lista",
+										"v1",
+										"listar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cobrança com Qr Code - Listar boletos liquidados - Erro CPF/CNPJ vázio",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token_sandbox}}",
+										"type": "text"
+									},
+									{
+										"key": "x-client-cert",
+										"value": "MIIDMjCCAhqgAwIBAgIJAI9zu4EFz0LoMA0GCSqGSIb3DQEBCwUAMC4xCzAJBgNVBAYTAkJSMQswCQYDVQQIDAJTUDESMBAGA1UECgwJUGFyY2Vpcm9YMB4XDTIwMDIxMjE3MzEzN1oXDTI2MDIxMDE3MzEzN1owLjELMAkGA1UEBhMCQlIxCzAJBgNVBAgMAlNQMRIwEAYDVQQKDAlQYXJjZWlyb1gwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCi1Ck7YGLNRovD/ALysZYRJtXcgzgAWoxPGVz4kbagyd2w7VlOo8yH3lfWAcoSHxMx2YWnEBp4FbXkLZXwvCMK2ybno6J6D2a57SpDtaK6RRFgxVik7bqrjlWSm28B9NxHgdZbeWAuUkmEd6C9Tsa9QXOC/ut9eL++u7dMKXuPEMQQojV5SC+cNbVVi26WqRw7tCGaT/YyV+tns9DC2fhTyS4okqlFC0JAwFDRmu4odw9Hy1khFdiDaX8z0eucJB1LDgUkYikovhgkf4L15hASbx6KSCH91wi+fDY97+DXD11pA5JClB1ShNhU8V7OHXcsSfOpUlCgZRBWa784/14fAgMBAAGjUzBRMB0GA1UdDgQWBBR8U2J+77hA9fR/C3i6om6iSkVsfjAfBgNVHSMEGDAWgBR8U2J+77hA9fR/C3i6om6iSkVsfjAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQCTJ+Jq2KiC1wPIYbGyydYzG6ubI2DISjGOANwkPXwbwcx/Snf9zYN8NYM8c+8DRzA/9Fc04nYXLqEaYhhheTjzW5+J5vee5Gv3DNjzof/X7yyKFhHL/GiK6uz6Kk8LYw1CqcXlhpmoV2KefTTcBdLGBfyG1Z+mM4g0Tt6g9lWjcwoMKmqcaGj+f8NlSTyGdS4PQ7sG4qoSjH1DVJQQ2juS0cCVEd8bUQKPkkpBA/J8Bf+UUN9+TJATpx1rYlLSYoDOSaJCaYht2vzwtv76bu1Ld/6eqABCMPqw3LWM/qRJoFUpknConf4HRaLCcAc9nkb2spPKknBH2BAU0Lh7jCpa",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"cpfCnpj\": {\r\n    \"cpfCnpj\": \"\",\r\n    \"filial\": 1018,\r\n    \"controle\": 38\r\n  },\r\n  \"produto\": 9,\r\n  \"negociacao\": 38610041000,\r\n  \"dataMovimentoDe\": 0,\r\n  \"dataMovimentoAte\": 0,\r\n  \"dataPagamentoDe\": 13072017,\r\n  \"dataPagamentoAte\": 8092025,\r\n  \"origemPagamento\": 0,\r\n  \"valorTituloDe\": 0,\r\n  \"valorTituloAte\": 0,\r\n  \"paginaAnterior\": 0\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://openapisandbox.prebanco.com.br/boleto-hibrido/cobranca-lista/v1/listar",
+									"protocol": "https",
+									"host": [
+										"openapisandbox",
+										"prebanco",
+										"com",
+										"br"
+									],
+									"path": [
+										"boleto-hibrido",
+										"cobranca-lista",
+										"v1",
+										"listar"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "PRODUÇÃO",
+			"item": [
+				{
+					"name": "Token",
+					"item": [
+						{
+							"name": "Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody); \r",
+											"postman.setGlobalVariable(\"access_token\", jsonData.access_token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "{{ClientID_PRD}}",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "{{ClientSecret_PRD}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://openapi.bradesco.com.br/auth/server-mtls/v2/token",
+									"protocol": "https",
+									"host": [
+										"openapi",
+										"bradesco",
+										"com",
+										"br"
+									],
+									"path": [
+										"auth",
+										"server-mtls",
+										"v2",
+										"token"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cobrança com QRCode - Registro de boleto com QRCode",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ctitloCobrCdent\": 0,\r\n    \"registrarTitulo\": 1,\r\n    \"nroCpfCnpjBenef\": 99999999,\r\n    \"qtdDecurPrz\": \"99\",\r\n    \"codUsuario\": \"APISERV\",\r\n    \"filCpfCnpjBenef\": \"9999\",\r\n    \"tipoAcesso\": 2,\r\n    \"digCpfCnpjBenef\": 99,\r\n    \"cpssoaJuridContr\": \"\",\r\n    \"ctpoContrNegoc\": \"\",\r\n    \"cidtfdProdCobr\": 9,\r\n    \"nseqContrNegoc\": \"\",\r\n    \"cnegocCobr\": 999900000000099999,\r\n    \"filler\": \"\",\r\n    \"eNseqContrNegoc\": \"\",\r\n    \"tipoRegistro\": 1,\r\n    \"codigoBanco\": 237,\r\n    \"cprodtServcOper\": \"\",\r\n    \"demisTitloCobr\": \"17.12.2024\",\r\n    \"ctitloCliCdent\": \"aaaa\",\r\n    \"dvctoTitloCobr\": \"20.02.2025\",\r\n    \"cidtfdTpoVcto\": \"\",\r\n    \"vnmnalTitloCobr\": 6000,\r\n    \"cindcdEconmMoeda\": 9,\r\n    \"cespceTitloCobr\": 2,\r\n    \"qmoedaNegocTitlo\": 0,\r\n    \"ctpoProteTitlo\": 0,\r\n    \"cindcdAceitSacdo\": \"N\",\r\n    \"ctpoPrzProte\": 0,\r\n    \"ctpoPrzDecurs\": 0,\r\n    \"ctpoProteDecurs\": 0,\r\n    \"cctrlPartcTitlo\": 0,\r\n    \"cindcdPgtoParcial\": \"N\",\r\n    \"cformaEmisPplta\": \"02\",\r\n    \"qtdePgtoParcial\": 0,\r\n    \"ptxJuroVcto\": 0,\r\n    \"filler1\": \"\",\r\n    \"vdiaJuroMora\": 0,\r\n    \"pmultaAplicVcto\": 0,\r\n    \"qdiaInicJuro\": 0,\r\n    \"vmultaAtrsoPgto\": 0,\r\n    \"pdescBonifPgto01\": 0,\r\n    \"qdiaInicMulta\": 0,\r\n    \"vdescBonifPgto01\": 0,\r\n    \"pdescBonifPgto02\": 0,\r\n    \"dlimDescBonif1\": \"\",\r\n    \"vdescBonifPgto02\": 0,\r\n    \"pdescBonifPgto03\": 0,\r\n    \"dlimDescBonif2\": \"\",\r\n    \"vdescBonifPgto03\": 0,\r\n    \"ctpoPrzCobr\": 0,\r\n    \"dlimDescBonif3\": \"\",\r\n    \"pdescBonifPgto\": 0,\r\n    \"dlimBonifPgto\": \"\",\r\n    \"vdescBonifPgto\": 0,\r\n    \"vabtmtTitloCobr\": 0,\r\n    \"filler2\": \"\",\r\n    \"viofPgtoTitlo\": 0,\r\n    \"isacdoTitloCobr\": \"TESTE EMPRESA PGIT\",\r\n    \"enroLogdrSacdo\": \"TESTE\",\r\n    \"elogdrSacdoTitlo\": \"TESTE\",\r\n    \"ecomplLogdrSacdo\": \"TESTE\",\r\n    \"ccepSacdoTitlo\": 6332,\r\n    \"ebairoLogdrSacdo\": \"TESTE\",\r\n    \"ccomplCepSacdo\": 130,\r\n    \"imunSacdoTitlo\": \"TESTE\",\r\n    \"indCpfCnpjSacdo\": 1,\r\n    \"csglUfSacdo\": \"SP\",\r\n    \"renderEletrSacdo\": \"\",\r\n    \"cdddFoneSacdo\": 0,\r\n    \"nroCpfCnpjSacdo\": 99999999999,\r\n    \"bancoDeb\": 0,\r\n    \"cfoneSacdoTitlo\": 0,\r\n    \"agenciaDebDv\": 0,\r\n    \"agenciaDeb\": 0,\r\n    \"bancoCentProt\": 0,\r\n    \"contaDeb\": 0,\r\n    \"isacdrAvalsTitlo\": \"\",\r\n    \"agenciaDvCentPr\": 0,\r\n    \"enroLogdrSacdr\": \"0\",\r\n    \"elogdrSacdrAvals\": \"\",\r\n    \"ecomplLogdrSacdr\": \"\",\r\n    \"ccomplCepSacdr\": 0,\r\n    \"ebairoLogdrSacdr\": \"\",\r\n    \"csglUfSacdr\": \"\",\r\n    \"ccepSacdrTitlo\": 0,\r\n    \"imunSacdrAvals\": \"\",\r\n    \"indCpfCnpjSacdr\": 0,\r\n    \"renderEletrSacdr\": \"\",\r\n    \"nroCpfCnpjSacdr\": 0,\r\n    \"cdddFoneSacdr\": 0,\r\n    \"filler3\": \"0\",\r\n    \"cfoneSacdrTitlo\": 0,\r\n    \"iconcPgtoSpi\": \"\",\r\n    \"fase\": \"1\",\r\n    \"cindcdCobrMisto\": \"S\",\r\n    \"ialiasAdsaoCta\": \"\",\r\n    \"ilinkGeracQrcd\": \"\",\r\n    \"caliasAdsaoCta\": \"\",\r\n    \"wqrcdPdraoMercd\": \"\",\r\n    \"validadeAposVencimento\": \"\",\r\n    \"filler4\": \"\",\r\n    \"idLoc\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://openapi.bradesco.com.br/boleto-hibrido/cobranca-registro/v1/gerarBoleto",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"bradesco",
+								"com",
+								"br"
+							],
+							"path": [
+								"boleto-hibrido",
+								"cobranca-registro",
+								"v1",
+								"gerarBoleto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar Boleto de Cobrança Hibrida",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codUsuario\": \"OPENAPI\",\r\n    \"vnmnalTitloCobr\": 655,\r\n    \"chave\": {\r\n        \"cnpjCpf\": 68542653,\r\n        \"filial\": 1018,\r\n        \"controle\": \"38\",\r\n        \"idprod\": 9,\r\n        \"ctaprod\": 38610041000,\r\n        \"nossoNumero\": \"35594134219\"\r\n    },\r\n    \"dadosTitulo\": {\r\n        \"seuNumero\": \"JFM ALT 1010\",\r\n        \"dataEmissao\": 0,\r\n        \"especie\": \"002\",\r\n        \"dataVencimento\": 15012025,\r\n        \"codVencimento\": 0,\r\n        \"codInstrucaoProtesto\": 0,\r\n        \"diasProtesto\": 0,\r\n        \"codDecurso\": 0,\r\n        \"diasDecurso\": 0,\r\n        \"codAbatimento\": 1,\r\n        \"valorAbatimentoTitulo\": 190,\r\n        \"dataPrimeiroDesc\": 0,\r\n        \"valorPrimeiroDesc\": 0,\r\n        \"codPrimeiroDesc\": 0,\r\n        \"acaoPrimeiroDesc\": 0,\r\n        \"dataSegundoDesc\": 0,\r\n        \"valorSegundoDesc\": 0,\r\n        \"codSegundoDesc\": 0,\r\n        \"acaoSegundoDesc\": 0,\r\n        \"dataTerceiroDesc\": 0,\r\n        \"valorTerceiroDesc\": 0,\r\n        \"codTerceiroDesc\": 0,\r\n        \"acaoTerceiroDesc\": 0,\r\n        \"controleParticipante\": \"146738343034214732\",\r\n        \"idAvisoSacado\": \"S\",\r\n        \"diasAposVencidoJuros\": 0,\r\n        \"valorJuros\": 0,\r\n        \"codJuros\": 0,\r\n        \"diasAposVencimentoMulta\": 0,\r\n        \"valorMulta\": 0,\r\n        \"codMulta\": 0,\r\n        \"codNegativacao\": 0,\r\n        \"diasNegativacao\": 0,\r\n        \"codPagamentoParcial\": \"N\",\r\n        \"qtdePagamentosParciais\": 0,\r\n        \"sacado\": \"\",\r\n        \"cgcCpfSacado\": \"0\",\r\n        \"endereco\": \"\",\r\n        \"cep\": 0,\r\n        \"cepSuf\": 0,\r\n        \"sacadorAvalista\": \"\",\r\n        \"aceite\": \"0\",\r\n        \"cgcCpfAvalista\": \"0\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://openapi.bradesco.com.br/boleto-hibrido/cobranca-alteracao/v1/alteraBoletoConsulta",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"bradesco",
+								"com",
+								"br"
+							],
+							"path": [
+								"boleto-hibrido",
+								"cobranca-alteracao",
+								"v1",
+								"alteraBoletoConsulta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cobrança - Solicitação de baixa de boleto",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cpfCnpj\": {\r\n        \"cpfCnpj\": \"1234567\",\r\n        \"filial\": \"1\",\r\n        \"controle\": \"99\"\r\n    },\r\n    \"produto\": 9,\r\n    \"negociacao\": 28560222654,\r\n    \"nossoNumero\": \"50150001462\",\r\n    \"sequencia\": 0,\r\n    \"codigoBaixa\": 57\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://openapi.bradesco.com.br/boleto/cobranca-baixa/v1/baixar",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"bradesco",
+								"com",
+								"br"
+							],
+							"path": [
+								"boleto",
+								"cobranca-baixa",
+								"v1",
+								"baixar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cobrança - Cadastro de Webhook",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"documento\": {\r\n        \"cpfCnpj\":\"1234567\",\r\n        \"filial\":\"1\",\r\n        \"controle\":\"99\"\r\n      }\r\n    ,\r\n      \"versaoLayout\":\"1\",\r\n      \"tipoCadastro\":\"C\",\r\n      \"utilizaWebhook\":\"S\",\r\n      \"urlEnvio\":\"http://empresa.com.br\",\r\n      \"tipoAviso\":\"1\"\r\n    }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://openapi.bradesco.com.br/boleto/cobranca-webhook/v1/executar",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"bradesco",
+								"com",
+								"br"
+							],
+							"path": [
+								"boleto",
+								"cobranca-webhook",
+								"v1",
+								"executar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cobrança com QRCode - Reserva ID Location",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cidtfdProdCobr\": 9,\r\n    \"cnpjCpfBnf\": 123456789,\r\n    \"codUsuario\": \"APISERVIC\",\r\n    \"cflialCnpjCpfBnf\": 9999,\r\n    \"agenciaCobr\": 1234,\r\n    \"contaCobr\": 99999,\r\n    \"cctrlCnpjCpfBnf\": 12\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://openapi.bradesco.com.br/boleto-hibrido/cobranca-reserva-location/v1/reservarLoc",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"bradesco",
+								"com",
+								"br"
+							],
+							"path": [
+								"boleto-hibrido",
+								"cobranca-reserva-location",
+								"v1",
+								"reservarLoc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cobrança com QRCode - Consulta Segunda Via",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cidtfdProdCobr\": 9,\r\n    \"cnpjCpfBnf\": 123456789,\r\n    \"codUsuario\": \"APISERVIC\",\r\n    \"cflialCnpjCpfBnf\": 9999,\r\n    \"agenciaCobr\": 1234,\r\n    \"contaCobr\": 99999,\r\n    \"cctrlCnpjCpfBnf\": 12\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://openapi.bradesco.com.br/boleto-hibrido/cobranca-consulta-titulo/v1/consultar",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"bradesco",
+								"com",
+								"br"
+							],
+							"path": [
+								"boleto-hibrido",
+								"cobranca-consulta-titulo",
+								"v1",
+								"consultar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cobrança com Qr Code - Listar boletos liquidados",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"produto\": \"9\",\r\n  \"dataPagamentoDe\": \"12345678\",\r\n  \"origemPagamento\": \"1\",\r\n  \"negociacao\": \"12345678901\",\r\n  \"valorTituloDe\": \"0\",\r\n  \"dataMovimentoAte\": \"01012026\",\r\n  \"dataMovimentoDe\": \"01012026\",\r\n  \"valorTituloAte\": \"0\",\r\n  \"cpfCnpj\": {\r\n    \"filial\": \"0001\",\r\n    \"cpfCnpj\": \"12345678\",\r\n    \"controle\": \"90\"\r\n  },\r\n  \"dataPagamentoAte\": \"01012026\",\r\n  \"paginaAnterior\": \"0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://openapi.bradesco.com.br/boleto-hibrido/cobranca-lista/v1/listar",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"bradesco",
+								"com",
+								"br"
+							],
+							"path": [
+								"boleto-hibrido",
+								"cobranca-lista",
+								"v1",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

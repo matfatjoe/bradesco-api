@@ -8,8 +8,8 @@ use Matfatjoe\BradescoBoleto\HttpClientFactory;
 use Matfatjoe\BradescoBoleto\Boleto\BoletoService;
 
 // Configuração
-$pfxPath = __DIR__ . '/certificado.pfx';
-$passphrase = 'senha_do_certificado';
+$certPath = __DIR__ . '/certificate.pem';
+$keyPath = __DIR__ . '/private.key';
 $clientId = 'seu_client_id';
 $clientSecret = 'seu_client_secret';
 $baseUrl = 'https://openapisandbox.prebanco.com.br';
@@ -17,14 +17,14 @@ $baseUrl = 'https://openapisandbox.prebanco.com.br';
 try {
     // 1. Autenticação
     echo "🔑 Autenticando...\n";
-    $tokenRequest = new TokenRequest($pfxPath, $passphrase, $clientId, $clientSecret);
+    $tokenRequest = new TokenRequest($certPath, $keyPath, $clientId, $clientSecret);
     $httpClient = HttpClientFactory::create();
     $authenticator = new Authenticator($httpClient, $baseUrl);
     $token = $authenticator->getToken($tokenRequest);
     echo "✅ Autenticado!\n\n";
 
     // 2. Serviço
-    $boletoService = new BoletoService($httpClient, $token, $baseUrl);
+    $boletoService = new BoletoService($httpClient, $token, $certPath, $keyPath, $baseUrl);
 
     // 3. Alterar Boleto
     // Dados baseados no Postman collection

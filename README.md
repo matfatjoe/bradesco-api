@@ -64,8 +64,8 @@ composer install
 Coloque seu certificado `.pfx` no diretório do projeto e configure as credenciais:
 
 ```php
-$pfxPath = __DIR__ . '/certificate.pfx';
-$passphrase = 'sua_senha_do_certificado';
+$certPath = __DIR__ . '/certificate.pem';
+$keyPath = __DIR__ . '/private.key';
 $clientId = 'seu_client_id';
 $clientSecret = 'seu_client_secret';
 ```

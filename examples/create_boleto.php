@@ -11,17 +11,18 @@ use Matfatjoe\BradescoBoleto\Models\BoletoBradesco;
 use GuzzleHttp\Exception\RequestException;
 
 // Configuração (Substitua pelos seus dados ou use variáveis de ambiente)
-$pfxPath = __DIR__ . '/certificado.pfx'; // Caminho para seu certificado PFX
-$passphrase = 'senha_do_certificado';
+$certPath = __DIR__ . '/certificate.pem'; // Caminho para seu certificado PEM
+$keyPath = __DIR__ . '/private.key'; // Caminho para sua chave privada PEM
 $clientId = 'seu_client_id';
 $clientSecret = 'seu_client_secret';
 $baseUrl = 'https://openapisandbox.prebanco.com.br'; // Sandbox URL
 
-// Verificar se o arquivo de certificado existe apenas para o exemplo não quebrar imediatamente se não existir
-if (!file_exists($pfxPath)) {
-    // Para fins de teste, criamos um arquivo vazio se não existir, mas o ideal é ter um real
-    // file_put_contents($pfxPath, ''); 
-    echo "⚠️  Aviso: Certificado não encontrado em $pfxPath. O exemplo falhará na autenticação.\n";
+// Verificar se os arquivos de certificado existem apenas para o exemplo não quebrar imediatamente se não existir
+if (!file_exists($certPath)) {
+    echo "⚠️  Aviso: Certificado não encontrado em $certPath.\n";
+}
+if (!file_exists($keyPath)) {
+    echo "⚠️  Aviso: Chave privada não encontrada em $keyPath.\n";
 }
 
 try {

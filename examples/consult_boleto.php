@@ -10,8 +10,8 @@ use Matfatjoe\BradescoBoleto\Boleto\ConsultBoletoBradescoRequest;
 use GuzzleHttp\Exception\RequestException;
 
 // Configuração (Substitua pelos seus dados ou use variáveis de ambiente)
-$pfxPath = __DIR__ . '/certificado.pfx'; // Caminho para seu certificado PFX
-$passphrase = 'senha_do_certificado';
+$certPath = __DIR__ . '/certificate.pem';
+$keyPath = __DIR__ . '/private.key';
 $clientId = 'seu_client_id';
 $clientSecret = 'seu_client_secret';
 $baseUrl = 'https://openapisandbox.prebanco.com.br'; // Sandbox URL

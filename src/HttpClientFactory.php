@@ -17,16 +17,12 @@ class HttpClientFactory
      * @param int $timeout Timeout em segundos
      * @return Client Cliente HTTP configurado
      */
-    public static function createFromTokenRequest(TokenRequest $tokenRequest, int $timeout = 30): Client
+    public static function create(): Client
     {
         // Criar cliente com certificado e chave configurados
         return new Client([
-            'timeout' => $timeout,
-            'connect_timeout' => 10,
-            'cert' => $tokenRequest->getCertPath(),
-            'ssl_key' => $tokenRequest->getKeyPath(),
             'verify' => true,
-            'http_errors' => false
+            'debug' => false, // Set to true to see full HTTP debug output
         ]);
     }
 }

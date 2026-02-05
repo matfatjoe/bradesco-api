@@ -16,16 +16,22 @@ class WorkspaceService
     private $baseUrl;
     private $token;
     private $clientId;
+    private $certPath;
+    private $keyPath;
 
     public function __construct(
         ClientInterface $client,
         Token $token,
         string $clientId,
+        string $certPath,
+        string $keyPath,
         string $baseUrl = 'https://api.bradesco.com.br'
     ) {
         $this->client = $client;
         $this->token = $token;
         $this->clientId = $clientId;
+        $this->certPath = $certPath;
+        $this->keyPath = $keyPath;
         $this->baseUrl = $baseUrl;
     }
 
@@ -45,7 +51,10 @@ class WorkspaceService
                 'X-Application-Key' => $this->clientId,
                 'Content-Type' => 'application/json'
             ],
-            'json' => $request->toArray()
+            'json' => $request->toArray(),
+            'cert' => $this->certPath,
+            'ssl_key' => $this->keyPath,
+            'verify' => true
         ]);
 
         $body = $response->getBody()->getContents();
@@ -73,7 +82,10 @@ class WorkspaceService
             'headers' => [
                 'Authorization' => $this->token->getAuthorizationHeader(),
                 'X-Application-Key' => $this->clientId
-            ]
+            ],
+            'cert' => $this->certPath,
+            'ssl_key' => $this->keyPath,
+            'verify' => true
         ]);
 
         $data = json_decode($response->getBody()->getContents(), true);
@@ -115,7 +127,10 @@ class WorkspaceService
             'headers' => [
                 'Authorization' => $this->token->getAuthorizationHeader(),
                 'X-Application-Key' => $this->clientId
-            ]
+            ],
+            'cert' => $this->certPath,
+            'ssl_key' => $this->keyPath,
+            'verify' => true
         ]);
 
         $body = $response->getBody()->getContents();
@@ -148,7 +163,10 @@ class WorkspaceService
                 'X-Application-Key' => $this->clientId,
                 'Content-Type' => 'application/json'
             ],
-            'json' => $request->toArray()
+            'json' => $request->toArray(),
+            'cert' => $this->certPath,
+            'ssl_key' => $this->keyPath,
+            'verify' => true
         ]);
 
         // A resposta do update não retorna o objeto completo (falta ID, type, etc)
@@ -174,7 +192,10 @@ class WorkspaceService
             'headers' => [
                 'Authorization' => $this->token->getAuthorizationHeader(),
                 'X-Application-Key' => $this->clientId
-            ]
+            ],
+            'cert' => $this->certPath,
+            'ssl_key' => $this->keyPath,
+            'verify' => true
         ]);
     }
 }

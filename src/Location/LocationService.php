@@ -14,11 +14,20 @@ class LocationService
     private $client;
     private $token;
     private $baseUrl;
+    private $certPath;
+    private $keyPath;
 
-    public function __construct(Client $client, Token $token, string $baseUrl = 'https://openapisandbox.prebanco.com.br')
-    {
+    public function __construct(
+        Client $client,
+        Token $token,
+        string $certPath,
+        string $keyPath,
+        string $baseUrl = 'https://openapisandbox.prebanco.com.br'
+    ) {
         $this->client = $client;
         $this->token = $token;
+        $this->certPath = $certPath;
+        $this->keyPath = $keyPath;
         $this->baseUrl = rtrim($baseUrl, '/');
     }
 
@@ -37,7 +46,10 @@ class LocationService
                 'Authorization' => $this->token->getAuthorizationHeader(),
                 'Content-Type' => 'application/json'
             ],
-            'json' => $dadosReserva
+            'json' => $dadosReserva,
+            'cert' => $this->certPath,
+            'ssl_key' => $this->keyPath,
+            'verify' => true
         ]);
 
         $body = $response->getBody()->getContents();

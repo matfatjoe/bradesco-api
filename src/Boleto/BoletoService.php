@@ -14,11 +14,20 @@ class BoletoService
     private $client;
     private $token;
     private $baseUrl;
+    private $certPath;
+    private $keyPath;
 
-    public function __construct(Client $client, Token $token, string $baseUrl = 'https://openapisandbox.prebanco.com.br')
-    {
+    public function __construct(
+        Client $client,
+        Token $token,
+        string $certPath,
+        string $keyPath,
+        string $baseUrl = 'https://openapisandbox.prebanco.com.br'
+    ) {
         $this->client = $client;
         $this->token = $token;
+        $this->certPath = $certPath;
+        $this->keyPath = $keyPath;
         $this->baseUrl = rtrim($baseUrl, '/');
     }
 
@@ -38,7 +47,10 @@ class BoletoService
                     'Authorization' => $this->token->getAuthorizationHeader(),
                     'Content-Type' => 'application/json'
                 ],
-                'json' => $request->toArray()
+                'json' => $request->toArray(),
+                'cert' => $this->certPath,
+                'ssl_key' => $this->keyPath,
+                'verify' => true
             ]);
 
             $body = $response->getBody()->getContents();
@@ -77,7 +89,10 @@ class BoletoService
 
         $response = $this->client->request('POST', $this->baseUrl . '/boleto-hibrido/cobranca-alteracao/v1/alteraBoletoConsulta', [
             'headers' => $headers,
-            'json' => $dadosAlteracao
+            'json' => $dadosAlteracao,
+            'cert' => $this->certPath,
+            'ssl_key' => $this->keyPath,
+            'verify' => true
         ]);
 
         $body = $response->getBody()->getContents();
@@ -105,7 +120,10 @@ class BoletoService
                 'Authorization' => $this->token->getAuthorizationHeader(),
                 'Content-Type' => 'application/json'
             ],
-            'json' => $dadosBaixa
+            'json' => $dadosBaixa,
+            'cert' => $this->certPath,
+            'ssl_key' => $this->keyPath,
+            'verify' => true
         ]);
 
         $body = $response->getBody()->getContents();
@@ -116,5 +134,41 @@ class BoletoService
         }
 
         return $data;
+    }
+
+    /**
+     * Consulta um boleto (Consulta e Segunda via de Boletos)
+     *
+     * @param ConsultBoletoBradescoRequest $request
+     * @return array
+     * @throws GuzzleException
+     * @throws \Exception
+     */
+    public function consultar(ConsultBoletoBradescoRequest $request): array
+    {
+        try {
+            $response = $this->client->request('POST', $this->baseUrl . '/boleto-hibrido/cobranca-consulta-titulo/v1/consultar', [
+                'headers' => [
+                    'Authorization' => $this->token->getAuthorizationHeader(),
+                    'Content-Type' => 'application/json'
+                ],
+                'json' => $request->toArray(),
+                'cert' => $this->certPath,
+                'ssl_key' => $this->keyPath,
+                'verify' => true
+            ]);
+
+            $body = $response->getBody()->getContents();
+            $data = json_decode($body, true);
+
+            if ($response->getStatusCode() !== 200) {
+                throw new \Exception('Failed to consult boleto. Status: ' . $response->getStatusCode() . '. Response: ' . $body);
+            }
+
+            return $data;
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            $responseBody = $e->hasResponse() ? $e->getResponse()->getBody()->getContents() : $e->getMessage();
+            throw new \Exception('Failed to consult boleto. ' . $responseBody);
+        }
     }
 }

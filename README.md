@@ -89,8 +89,8 @@ use Matfatjoe\BradescoBoleto\Auth\Authenticator;
 use Matfatjoe\BradescoBoleto\Auth\TokenRequest;
 use Matfatjoe\BradescoBoleto\HttpClientFactory;
 
-$tokenRequest = new TokenRequest($pfxPath, $passphrase, $clientId, $clientSecret);
-$httpClient = HttpClientFactory::createFromTokenRequest($tokenRequest);
+$tokenRequest = new TokenRequest($certPath, $keyPath, $clientId, $clientSecret);
+$httpClient = HttpClientFactory::create();
 $authenticator = new Authenticator($httpClient, $baseUrl);
 $token = $authenticator->getToken($tokenRequest);
 ```
@@ -102,7 +102,7 @@ use Matfatjoe\BradescoBoleto\Boleto\BoletoService;
 use Matfatjoe\BradescoBoleto\Boleto\RegisterBoletoBradescoRequest;
 use Matfatjoe\BradescoBoleto\Models\BoletoBradesco;
 
-$boletoService = new BoletoService($httpClient, $token, $baseUrl);
+$boletoService = new BoletoService($httpClient, $token, $certPath, $keyPath, $baseUrl);
 
 $dadosBoleto = [
     'ctitloCobrCdent' => 0,
@@ -149,7 +149,7 @@ $resultado = $boletoService->register(new RegisterBoletoBradescoRequest($boleto)
 ```php
 use Matfatjoe\BradescoBoleto\Query\QueryService;
 
-$queryService = new QueryService($httpClient, $token, $baseUrl);
+$queryService = new QueryService($httpClient, $token, $certPath, $keyPath, $baseUrl);
 
 $dadosConsulta = [
     'contaProduto' => 38610041000,
@@ -232,7 +232,7 @@ $boletos = $queryService->listar($filtros);
 ```php
 use Matfatjoe\BradescoBoleto\Location\LocationService;
 
-$locationService = new LocationService($httpClient, $token, $baseUrl);
+$locationService = new LocationService($httpClient, $token, $certPath, $keyPath, $baseUrl);
 
 $dadosReserva = [
     'codUsuario' => 'APISERVIC',
@@ -252,7 +252,7 @@ $location = $locationService->reservar($dadosReserva);
 ```php
 use Matfatjoe\BradescoBoleto\Webhook\WebhookService;
 
-$webhookService = new WebhookService($httpClient, $token, $baseUrl);
+$webhookService = new WebhookService($httpClient, $token, $certPath, $keyPath, $baseUrl);
 
 $dadosWebhook = [
     'documento' => [

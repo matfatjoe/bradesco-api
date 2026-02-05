@@ -8,6 +8,7 @@ use Matfatjoe\BradescoBoleto\HttpClientFactory;
 use Matfatjoe\BradescoBoleto\Boleto\BoletoService;
 use Matfatjoe\BradescoBoleto\Boleto\RegisterBoletoBradescoRequest;
 use Matfatjoe\BradescoBoleto\Models\BoletoBradesco;
+use GuzzleHttp\Exception\RequestException;
 
 // Configuração (Substitua pelos seus dados ou use variáveis de ambiente)
 $pfxPath = __DIR__ . '/certificado.pfx'; // Caminho para seu certificado PFX
@@ -26,14 +27,14 @@ if (!file_exists($pfxPath)) {
 try {
     // 1. Autenticação
     echo "🔑 Autenticando...\n";
-    $tokenRequest = new TokenRequest($pfxPath, $passphrase, $clientId, $clientSecret);
+    $tokenRequest = new TokenRequest($certPath, $keyPath, $clientId, $clientSecret);
     $httpClient = HttpClientFactory::create(); 
     $authenticator = new Authenticator($httpClient, $baseUrl);
     $token = $authenticator->getToken($tokenRequest);
     echo "✅ Autenticado! Token: " . substr($token->getAccessToken(), 0, 10) . "...\n\n";
 
     // 2. Serviço de Boleto
-    $boletoService = new BoletoService($httpClient, $token, $baseUrl);
+    $boletoService = new BoletoService($httpClient, $token, $certPath, $keyPath, $baseUrl);
 
     // 3. Dados do Boleto (Baseado no Postman)
     // Note: Em produção, utilize dados reais e validações
@@ -155,9 +156,11 @@ try {
     print_r($result);
     // Verificar se retornou o nossoNumero ou similar para usar nos próximos exemplos
 
-} catch (\Exception $e) {
-    echo "❌ Erro: " . $e->getMessage() . "\n";
-    if (method_exists($e, 'getResponse') && $e->getResponse()) {
+} catch (RequestException $e) {
+    echo "❌ Erro de Requisição: " . $e->getMessage() . "\n";
+    if ($e->hasResponse()) {
         echo "Response Body: " . $e->getResponse()->getBody()->getContents() . "\n";
     }
+} catch (\Exception $e) {
+    echo "❌ Erro: " . $e->getMessage() . "\n";
 }

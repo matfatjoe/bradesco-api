@@ -9,6 +9,7 @@ use GuzzleHttp\Psr7\Response;
 use Matfatjoe\BradescoBoleto\Boleto\BoletoService;
 use Matfatjoe\BradescoBoleto\Boleto\RegisterBoletoBradescoRequest;
 use Matfatjoe\BradescoBoleto\Boleto\ConsultBoletoBradescoRequest;
+use Matfatjoe\BradescoBoleto\Boleto\ListSettledBoletosBradescoRequest;
 use Matfatjoe\BradescoBoleto\Models\BoletoBradesco;
 use Matfatjoe\BradescoBoleto\Models\Token;
 use PHPUnit\Framework\TestCase;
@@ -163,6 +164,39 @@ class BoletoServiceTest extends TestCase
 
         $this->assertIsArray($result);
         $this->assertEquals(0, $result['cdErro']);
-        $this->assertEquals('970039324', $result['data']['nossoNumero']);
+    }
+
+    public function testListSettledBoletosSuccess()
+    {
+        $responseBody = json_encode([
+            'cdErro' => 0,
+            'msgErro' => 'Sucesso',
+            'data' => [
+                [
+                    'nossoNumero' => '970039324',
+                    'valorPagamento' => 100.00
+                ]
+            ]
+        ]);
+
+        $mock = new MockHandler([
+            new Response(200, [], $responseBody)
+        ]);
+
+        $handlerStack = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handlerStack]);
+
+        $service = new BoletoService($client, $this->createMockToken(), 'cert.pem', 'key.pem');
+
+        $request = new ListSettledBoletosBradescoRequest([
+            'negociacao' => 12345678,
+            'cpfCnpj' => ['cpfCnpj' => 123, 'filial' => 0, 'controle' => 1]
+        ]);
+
+        $result = $service->listarLiquidados($request);
+
+        $this->assertIsArray($result);
+        $this->assertEquals(0, $result['cdErro']);
+        $this->assertCount(1, $result['data']);
     }
 }

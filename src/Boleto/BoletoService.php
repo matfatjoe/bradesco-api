@@ -171,4 +171,40 @@ class BoletoService
             throw new \Exception('Failed to consult boleto. ' . $responseBody);
         }
     }
+
+    /**
+     * Lista boletos liquidados
+     *
+     * @param ListSettledBoletosBradescoRequest $request
+     * @return array
+     * @throws GuzzleException
+     * @throws \Exception
+     */
+    public function listarLiquidados(ListSettledBoletosBradescoRequest $request): array
+    {
+        try {
+            $response = $this->client->request('POST', $this->baseUrl . '/boleto-hibrido/cobranca-lista/v1/listar', [
+                'headers' => [
+                    'Authorization' => $this->token->getAuthorizationHeader(),
+                    'Content-Type' => 'application/json'
+                ],
+                'json' => $request->toArray(),
+                'cert' => $this->certPath,
+                'ssl_key' => $this->keyPath,
+                'verify' => true
+            ]);
+
+            $body = $response->getBody()->getContents();
+            $data = json_decode($body, true);
+
+            if ($response->getStatusCode() !== 200) {
+                throw new \Exception('Failed to list settled boletos. Status: ' . $response->getStatusCode() . '. Response: ' . $body);
+            }
+
+            return $data;
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            $responseBody = $e->hasResponse() ? $e->getResponse()->getBody()->getContents() : $e->getMessage();
+            throw new \Exception('Failed to list settled boletos. ' . $responseBody);
+        }
+    }
 }

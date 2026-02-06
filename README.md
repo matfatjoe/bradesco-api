@@ -207,6 +207,26 @@ $dadosBaixa = [
 ];
 
 $resultado = $boletoService->baixar($dadosBaixa);
+
+### Listar Boletos Liquidados
+
+```php
+use Matfatjoe\BradescoBoleto\Boleto\ListSettledBoletosBradescoRequest;
+
+$request = new ListSettledBoletosBradescoRequest([
+    'cpfCnpj' => [
+        'cpfCnpj' => 114383908,
+        'filial' => 0,
+        'controle' => 7
+    ],
+    'produto' => 9,
+    'negociacao' => 28560230114,
+    'dataPagamentoDe' => 14092017,
+    'dataPagamentoAte' => 15092025
+]);
+
+$boletos = $boletoService->listarLiquidados($request);
+```
 ```
 
 ### Listar Boletos Liquidados
@@ -280,8 +300,9 @@ $resultado = $webhookService->cadastrar($dadosWebhook);
 
 ### 📄 Boleto Module
 
-- `BoletoService` - Registro, alteração e baixa de boletos
+- `BoletoService` - Registro, alteração, baixa e listagem de liquidados
 - `RegisterBoletoBradescoRequest` - Request para registro
+- `ListSettledBoletosBradescoRequest` - Request para listagem de liquidados
 - `BoletoBradesco` - Model de boleto do Bradesco
 
 ### 🔍 Query Module
@@ -304,6 +325,7 @@ Veja a pasta `examples/` para exemplos completos (a ser criada):
 - `example-auth.php` - Autenticação
 - `example-workspace.php` - Gerenciamento de workspaces
 - `example-boleto.php` - Registro de boletos
+- `list_settled_boletos.php` - Listagem de liquidados
 - `example-query.php` - Consultas
 
 ## 🧪 Testes
